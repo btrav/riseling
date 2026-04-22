@@ -6,16 +6,16 @@ import { FONT_THEMES } from '../utils/fonts';
 import { useSpring } from '../hooks/useSpring';
 
 const W = 560;
-const H = 320;
+const H = 380;
 const bodyX = 70;
-const bodyY = 140;
+const bodyY = 130;
 const bodyWidth = 400;
-const bodyHeight = 110;
+const bodyHeight = 100;
 const bodyR = 18;
 const termX = bodyX + bodyWidth;
 const termY = bodyY + 30;
 const termWidth = 14;
-const termHeight = 50;
+const termHeight = 40;
 const termR = 4;
 const innerPad = 8;
 
@@ -144,9 +144,9 @@ export function Battery({ config, ref }: ShapeProps) {
           <>
             <text
               x={W / 2}
-              y={235}
+              y={294}
               textAnchor="middle"
-              fontSize={40}
+              fontSize={42}
               fontWeight={600}
               fill="#0f172a"
               letterSpacing="-0.02em"
@@ -155,7 +155,7 @@ export function Battery({ config, ref }: ShapeProps) {
             </text>
             <text
               x={W / 2}
-              y={258}
+              y={316}
               textAnchor="middle"
               fontSize={10}
               fontFamily={fonts.labels}
@@ -171,7 +171,7 @@ export function Battery({ config, ref }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={292}
+            y={350}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}
