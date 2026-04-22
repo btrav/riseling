@@ -25,35 +25,11 @@ export function ControlsPanel({ config, set }: Props) {
       </div>
 
       <div className="flex flex-col gap-5 px-5 py-4">
-        <Field label="Shape">
-          <select
-            value={config.shape}
-            onChange={(e) => set({ shape: e.target.value as ShapeKey })}
-            className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm"
-          >
-            {LIVE_SHAPES.map((k) => (
-              <option key={k} value={k}>
-                {SHAPE_LABELS[k]}
-              </option>
-            ))}
-          </select>
-        </Field>
-
         <Field label="Title">
           <input
             type="text"
             value={config.title}
             onChange={(e) => set({ title: e.target.value })}
-            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
-          />
-        </Field>
-
-        <Field label="Caption (optional)">
-          <input
-            type="text"
-            value={config.caption}
-            onChange={(e) => set({ caption: e.target.value })}
-            placeholder="e.g. Ends Friday · All proceeds to X"
             className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
           />
         </Field>
@@ -78,6 +54,20 @@ export function ControlsPanel({ config, set }: Props) {
           />
         </Field>
 
+        <Field label="Shape">
+          <select
+            value={config.shape}
+            onChange={(e) => set({ shape: e.target.value as ShapeKey })}
+            className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm"
+          >
+            {LIVE_SHAPES.map((k) => (
+              <option key={k} value={k}>
+                {SHAPE_LABELS[k]}
+              </option>
+            ))}
+          </select>
+        </Field>
+
         <div className="flex flex-col gap-2">
           <span className="text-xs font-medium text-gray-700">Tracking</span>
           <div className="grid grid-cols-2 gap-2 rounded-md bg-gray-100 p-1">
@@ -94,10 +84,7 @@ export function ControlsPanel({ config, set }: Props) {
               Custom unit
             </SegmentButton>
           </div>
-        </div>
-
-        {config.useCurrencyFormat ? (
-          <Field label="Currency">
+          {config.useCurrencyFormat ? (
             <select
               value={currencyKey}
               onChange={(e) => handleCurrencyChange(e.target.value)}
@@ -109,9 +96,7 @@ export function ControlsPanel({ config, set }: Props) {
                 </option>
               ))}
             </select>
-          </Field>
-        ) : (
-          <Field label="Unit label">
+          ) : (
             <input
               type="text"
               value={config.unitLabel}
@@ -119,8 +104,18 @@ export function ControlsPanel({ config, set }: Props) {
               placeholder="e.g. books, miles, meals"
               className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
             />
-          </Field>
-        )}
+          )}
+        </div>
+
+        <Field label="Caption (optional)">
+          <input
+            type="text"
+            value={config.caption}
+            onChange={(e) => set({ caption: e.target.value })}
+            placeholder="e.g. Ends Friday"
+            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
+          />
+        </Field>
 
         <Field label="Font">
           <select
@@ -157,7 +152,7 @@ export function ControlsPanel({ config, set }: Props) {
       </div>
 
       <div className="mt-auto border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        v0.2.0 · Slice 2
+        v0.2.1 · Slice 2.1
       </div>
     </div>
   );

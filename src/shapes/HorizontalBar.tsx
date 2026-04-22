@@ -25,9 +25,9 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
   const gradId = useId();
   const clipId = useId();
 
-  const fillLight = lighten(config.fillColor, 0.2);
-  const fillShadow = darken(config.fillColor, 0.1);
-  const trackBorder = darken(config.trackColor, 0.08);
+  const fillLight = lighten(config.fillColor, 0.22);
+  const fillShadow = darken(config.fillColor, 0.12);
+  const trackBorder = darken(config.trackColor, 0.18);
 
   return (
     <svg
@@ -41,7 +41,7 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
       <defs>
         <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor={fillLight} />
-          <stop offset="0.55" stopColor={config.fillColor} />
+          <stop offset="0.35" stopColor={config.fillColor} />
           <stop offset="1" stopColor={fillShadow} />
         </linearGradient>
         <clipPath id={clipId}>
@@ -54,7 +54,7 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
           x={W / 2}
           y={60}
           textAnchor="middle"
-          fontSize={30}
+          fontSize={28}
           fontWeight={600}
           fill="#111827"
           fontFamily={fonts.title}
@@ -86,21 +86,24 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
         rx={barHeight / 2}
         fill={config.trackColor}
         stroke={trackBorder}
-        strokeWidth={1.25}
+        strokeWidth={1.5}
+        vectorEffect="non-scaling-stroke"
       />
 
       <g clipPath={`url(#${clipId})`}>
         <rect x={barX} y={barY} width={fillWidth} height={barHeight} fill={`url(#${gradId})`} />
         {fillWidth > barHeight * 0.6 && (
-          <rect
-            x={barX + 6}
-            y={barY + 4}
-            width={Math.max(0, fillWidth - 12)}
-            height={3}
-            rx={1.5}
-            fill="white"
-            opacity={0.26}
-          />
+          <g style={{ mixBlendMode: 'screen' }}>
+            <rect
+              x={barX + 8}
+              y={barY + 4}
+              width={Math.max(0, fillWidth - 16)}
+              height={3}
+              rx={1.5}
+              fill="white"
+              opacity={0.42}
+            />
+          </g>
         )}
       </g>
 
@@ -120,13 +123,13 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
             </text>
             <text
               x={W / 2}
-              y={250}
+              y={246}
               textAnchor="middle"
-              fontSize={11}
+              fontSize={10}
               fontFamily={fonts.labels}
               fontWeight={500}
               fill="#9ca3af"
-              letterSpacing="0.14em"
+              letterSpacing="0.1em"
             >
               RAISED
             </text>

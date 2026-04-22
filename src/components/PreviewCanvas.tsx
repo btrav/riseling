@@ -16,7 +16,7 @@ export function PreviewCanvas({ config }: Props) {
         <DownloadButton svgRef={svgRef} config={config} />
       </div>
       <div className="checkered-bg flex flex-1 items-center justify-center overflow-auto p-10">
-        <div className="rounded-2xl border border-black/5 bg-white px-8 py-10 shadow-sm">
+        <div className="rounded-2xl border border-black/5 bg-white px-7 py-7 shadow-sm">
           <Shape config={config} ref={svgRef} />
         </div>
       </div>

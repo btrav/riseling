@@ -6,13 +6,13 @@ import { FONT_THEMES } from '../utils/fonts';
 import { useSpring } from '../hooks/useSpring';
 
 const W = 440;
-const H = 720;
+const H = 660;
 
-const tubeW = 80;
+const tubeW = 74;
 const tubeX = (W - tubeW) / 2;
-const tubeTop = 120;
-const bulbR = 65;
-const bulbCY = 510;
+const tubeTop = 110;
+const bulbR = 58;
+const bulbCY = 488;
 const cx = tubeX + tubeW / 2;
 
 const topArcEndY = tubeTop + tubeW / 2;
@@ -43,9 +43,9 @@ export function Thermometer({ config, ref }: ShapeProps) {
   const clipId = useId();
   const highlightClipId = useId();
 
-  const fillLight = lighten(config.fillColor, 0.2);
-  const fillShadow = darken(config.fillColor, 0.1);
-  const trackBorder = darken(config.trackColor, 0.08);
+  const fillLight = lighten(config.fillColor, 0.22);
+  const fillShadow = darken(config.fillColor, 0.12);
+  const trackBorder = darken(config.trackColor, 0.18);
 
   return (
     <svg
@@ -66,7 +66,7 @@ export function Thermometer({ config, ref }: ShapeProps) {
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0" stopColor={fillLight} />
-          <stop offset="0.45" stopColor={config.fillColor} />
+          <stop offset="0.35" stopColor={config.fillColor} />
           <stop offset="1" stopColor={fillShadow} />
         </linearGradient>
         <clipPath id={clipId}>
@@ -80,9 +80,9 @@ export function Thermometer({ config, ref }: ShapeProps) {
       {config.show.title && config.title && (
         <text
           x={W / 2}
-          y={56}
+          y={50}
           textAnchor="middle"
-          fontSize={30}
+          fontSize={28}
           fontWeight={600}
           fill="#111827"
           fontFamily={fonts.title}
@@ -95,7 +95,7 @@ export function Thermometer({ config, ref }: ShapeProps) {
       {config.show.caption && config.caption && (
         <text
           x={W / 2}
-          y={86}
+          y={78}
           textAnchor="middle"
           fontSize={13}
           fontFamily={fonts.labels}
@@ -106,30 +106,37 @@ export function Thermometer({ config, ref }: ShapeProps) {
         </text>
       )}
 
-      <path d={trackPath} fill={config.trackColor} stroke={trackBorder} strokeWidth={1.25} />
+      <path
+        d={trackPath}
+        fill={config.trackColor}
+        stroke={trackBorder}
+        strokeWidth={1.5}
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+      />
 
       <g clipPath={`url(#${clipId})`}>
         <path d={trackPath} fill={`url(#${gradId})`} />
       </g>
 
-      <g clipPath={`url(#${highlightClipId})`}>
+      <g clipPath={`url(#${highlightClipId})`} style={{ mixBlendMode: 'screen' }}>
         <rect
-          x={tubeX + tubeW * 0.2}
+          x={tubeX + tubeW * 0.22}
           y={topArcEndY - 4}
-          width={tubeW * 0.1}
+          width={tubeW * 0.08}
           height={bulbMeetY - topArcEndY + 8}
           fill="white"
-          opacity={0.22}
-          rx={tubeW * 0.05}
+          opacity={0.38}
+          rx={tubeW * 0.04}
         />
         <ellipse
-          cx={cx - bulbR * 0.34}
-          cy={bulbCY - bulbR * 0.3}
-          rx={bulbR * 0.16}
-          ry={bulbR * 0.22}
+          cx={cx - bulbR * 0.36}
+          cy={bulbCY - bulbR * 0.32}
+          rx={bulbR * 0.18}
+          ry={bulbR * 0.24}
           fill="white"
-          opacity={0.28}
-          transform={`rotate(-18 ${cx - bulbR * 0.34} ${bulbCY - bulbR * 0.3})`}
+          opacity={0.42}
+          transform={`rotate(-18 ${cx - bulbR * 0.36} ${bulbCY - bulbR * 0.32})`}
         />
       </g>
 
@@ -138,9 +145,9 @@ export function Thermometer({ config, ref }: ShapeProps) {
           <>
             <text
               x={W / 2}
-              y={614}
+              y={584}
               textAnchor="middle"
-              fontSize={46}
+              fontSize={42}
               fontWeight={600}
               fill="#0f172a"
               letterSpacing="-0.02em"
@@ -149,13 +156,13 @@ export function Thermometer({ config, ref }: ShapeProps) {
             </text>
             <text
               x={W / 2}
-              y={640}
+              y={604}
               textAnchor="middle"
-              fontSize={11}
+              fontSize={10}
               fontFamily={fonts.labels}
               fontWeight={500}
               fill="#9ca3af"
-              letterSpacing="0.14em"
+              letterSpacing="0.1em"
             >
               RAISED
             </text>
@@ -165,27 +172,27 @@ export function Thermometer({ config, ref }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={672}
+            y={636}
             textAnchor="middle"
-            fontSize={15}
+            fontSize={14}
             fontFamily={fonts.labels}
             fontWeight={400}
             fill="#6b7280"
           >
             of {formatValue(config.target, config)} goal
+            {config.show.percentage && ` · ${displayPercent}%`}
           </text>
         )}
 
-        {config.show.percentage && (
+        {!config.show.goal && config.show.percentage && (
           <text
             x={W / 2}
-            y={698}
+            y={636}
             textAnchor="middle"
-            fontSize={12}
+            fontSize={14}
             fontFamily={fonts.labels}
             fontWeight={500}
             fill="#9ca3af"
-            letterSpacing="0.04em"
           >
             {displayPercent}% of goal
           </text>
