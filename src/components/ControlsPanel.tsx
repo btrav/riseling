@@ -18,7 +18,7 @@ export function ControlsPanel({ config, set }: Props) {
   }
 
   return (
-    <div className="flex h-full flex-col overflow-y-auto border-r border-gray-200 bg-white">
+    <div className="flex h-full flex-col overflow-y-auto border-t border-gray-200 bg-white lg:border-t-0 lg:border-r">
       <div className="border-b border-gray-200 px-5 py-4">
         <h1 className="text-lg font-semibold text-gray-900">Riseling</h1>
         <p className="text-xs text-gray-500">Fundraising image generator</p>

@@ -144,7 +144,7 @@ export function ProgressRing({ config, ref }: ShapeProps) {
               fontSize={12}
               fontFamily={fonts.labels}
               fontWeight={500}
-              fill="#9ca3af"
+              fill="#6b7280"
               letterSpacing="0.1em"
             >
               OF GOAL
@@ -186,7 +186,7 @@ export function ProgressRing({ config, ref }: ShapeProps) {
               fontSize={10}
               fontFamily={fonts.labels}
               fontWeight={500}
-              fill="#9ca3af"
+              fill="#6b7280"
               letterSpacing="0.1em"
             >
               RAISED
