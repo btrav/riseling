@@ -13,10 +13,10 @@ export function PreviewCanvas({ config }: Props) {
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between border-b border-gray-200 px-6 py-3">
         <span className="text-sm font-medium text-gray-600">Preview</span>
-        <DownloadButton svgRef={svgRef} title={config.title} />
+        <DownloadButton svgRef={svgRef} config={config} />
       </div>
-      <div className="checkered-bg flex flex-1 items-center justify-center p-8 overflow-auto">
-        <div className="rounded-lg bg-white p-6 shadow-sm">
+      <div className="checkered-bg flex flex-1 items-center justify-center overflow-auto p-10">
+        <div className="rounded-2xl border border-black/5 bg-white px-8 py-10 shadow-sm">
           <Shape config={config} ref={svgRef} />
         </div>
       </div>

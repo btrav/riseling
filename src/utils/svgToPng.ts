@@ -1,7 +1,29 @@
-export async function svgToPng(svg: SVGSVGElement, scale = 3): Promise<Blob> {
+import type { FontFaceSpec } from './fonts';
+import { buildFontFaceCss } from './fonts';
+
+export async function svgToPng(
+  svg: SVGSVGElement,
+  options: { scale?: number; fontFaces?: FontFaceSpec[] } = {},
+): Promise<Blob> {
+  const { scale = 3, fontFaces = [] } = options;
   const clone = svg.cloneNode(true) as SVGSVGElement;
   if (!clone.getAttribute('xmlns')) {
     clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  }
+
+  if (fontFaces.length) {
+    const css = await buildFontFaceCss(fontFaces);
+    if (css) {
+      const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+      style.textContent = css;
+      const defs =
+        clone.querySelector('defs') ||
+        clone.insertBefore(
+          document.createElementNS('http://www.w3.org/2000/svg', 'defs'),
+          clone.firstChild,
+        );
+      defs.insertBefore(style, defs.firstChild);
+    }
   }
 
   const vb = svg.viewBox.baseVal;

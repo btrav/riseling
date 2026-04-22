@@ -1,3 +1,5 @@
+import type { FontKey } from './utils/fonts';
+
 export type ShapeKey = 'thermometer' | 'bar' | 'ring' | 'jar' | 'battery' | 'heart';
 
 export const SHAPE_KEYS: readonly ShapeKey[] = [
@@ -21,6 +23,7 @@ export type Config = {
   useCurrencyFormat: boolean;
   fillColor: string;
   trackColor: string;
+  font: FontKey;
   show: {
     title: boolean;
     caption: boolean;

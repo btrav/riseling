@@ -1,6 +1,10 @@
 import { useQueryStates, parseAsString, parseAsInteger, parseAsBoolean } from 'nuqs';
 import type { Config, ShapeKey } from '../types';
 import { SHAPE_KEYS } from '../types';
+import type { FontKey } from '../utils/fonts';
+import { FONT_THEMES } from '../utils/fonts';
+
+const FONT_KEYS = Object.keys(FONT_THEMES) as FontKey[];
 
 const defaults = {
   s: 'thermometer',
@@ -11,8 +15,9 @@ const defaults = {
   c: 'USD',
   lo: 'en-US',
   u: '',
-  cf: '#ef4444',
-  ct: '#f3f4f6',
+  cf: '#E11D48',
+  ct: '#EEF0F3',
+  f: 'editorial',
   uc: true,
   vt: true,
   vc: true,
@@ -36,6 +41,7 @@ export function useConfig(): {
     u: parseAsString.withDefault(defaults.u),
     cf: parseAsString.withDefault(defaults.cf),
     ct: parseAsString.withDefault(defaults.ct),
+    f: parseAsString.withDefault(defaults.f),
     uc: parseAsBoolean.withDefault(defaults.uc),
     vt: parseAsBoolean.withDefault(defaults.vt),
     vc: parseAsBoolean.withDefault(defaults.vc),
@@ -47,6 +53,10 @@ export function useConfig(): {
   const shape: ShapeKey = (SHAPE_KEYS as readonly string[]).includes(state.s)
     ? (state.s as ShapeKey)
     : 'thermometer';
+
+  const font: FontKey = (FONT_KEYS as readonly string[]).includes(state.f)
+    ? (state.f as FontKey)
+    : 'editorial';
 
   const config: Config = {
     shape,
@@ -60,6 +70,7 @@ export function useConfig(): {
     useCurrencyFormat: state.uc,
     fillColor: state.cf,
     trackColor: state.ct,
+    font,
     show: {
       title: state.vt,
       caption: state.vc,
@@ -82,6 +93,7 @@ export function useConfig(): {
     if (patch.useCurrencyFormat !== undefined) update.uc = patch.useCurrencyFormat;
     if (patch.fillColor !== undefined) update.cf = patch.fillColor;
     if (patch.trackColor !== undefined) update.ct = patch.trackColor;
+    if (patch.font !== undefined) update.f = patch.font;
     if (patch.show) {
       if (patch.show.title !== undefined) update.vt = patch.show.title;
       if (patch.show.caption !== undefined) update.vc = patch.show.caption;

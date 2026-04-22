@@ -1,4 +1,6 @@
 import type { Config } from '../types';
+import { FONT_THEMES } from '../utils/fonts';
+import type { FontKey } from '../utils/fonts';
 
 type Props = {
   config: Config;
@@ -43,6 +45,20 @@ export function ControlsPanel({ config, set }: Props) {
           />
         </Field>
 
+        <Field label="Font">
+          <select
+            value={config.font}
+            onChange={(e) => set({ font: e.target.value as FontKey })}
+            className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm"
+          >
+            {Object.values(FONT_THEMES).map((theme) => (
+              <option key={theme.key} value={theme.key}>
+                {theme.label}
+              </option>
+            ))}
+          </select>
+        </Field>
+
         <div className="grid grid-cols-2 gap-3">
           <Field label="Fill color">
             <input
@@ -64,7 +80,7 @@ export function ControlsPanel({ config, set }: Props) {
       </div>
 
       <div className="mt-auto border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        v0.1 · Slice 1
+        v0.1.1 · Slice 1.1
       </div>
     </div>
   );
