@@ -152,7 +152,7 @@ export function ControlsPanel({ config, set }: Props) {
       </div>
 
       <div className="mt-auto border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        v0.2.1 · Slice 2.1
+        v0.3.0 · Slice 4
       </div>
     </div>
   );

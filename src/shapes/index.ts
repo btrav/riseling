@@ -2,16 +2,18 @@ import type { ComponentType } from 'react';
 import type { ShapeKey, ShapeProps } from '../types';
 import { Thermometer } from './Thermometer';
 import { HorizontalBar } from './HorizontalBar';
-
-const placeholder: ComponentType<ShapeProps> = Thermometer;
+import { ProgressRing } from './ProgressRing';
+import { Jar } from './Jar';
+import { Battery } from './Battery';
+import { Heart } from './Heart';
 
 export const SHAPE_REGISTRY: Record<ShapeKey, ComponentType<ShapeProps>> = {
   thermometer: Thermometer,
   bar: HorizontalBar,
-  ring: placeholder,
-  jar: placeholder,
-  battery: placeholder,
-  heart: placeholder,
+  ring: ProgressRing,
+  jar: Jar,
+  battery: Battery,
+  heart: Heart,
 };
 
 export const SHAPE_LABELS: Record<ShapeKey, string> = {
@@ -23,4 +25,11 @@ export const SHAPE_LABELS: Record<ShapeKey, string> = {
   heart: 'Heart',
 };
 
-export const LIVE_SHAPES: ShapeKey[] = ['thermometer', 'bar'];
+export const LIVE_SHAPES: ShapeKey[] = [
+  'thermometer',
+  'bar',
+  'ring',
+  'jar',
+  'battery',
+  'heart',
+];
