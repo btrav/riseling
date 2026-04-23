@@ -6,7 +6,7 @@ import { FONT_THEMES } from '../utils/fonts';
 import { useSpring } from '../hooks/useSpring';
 
 const W = 440;
-const H = 660;
+const H = 720;
 
 const tubeW = 74;
 const tubeX = (W - tubeW) / 2;
@@ -145,7 +145,7 @@ export function Thermometer({ config, ref }: ShapeProps) {
           <>
             <text
               x={W / 2}
-              y={584}
+              y={644}
               textAnchor="middle"
               fontSize={42}
               fontWeight={600}
@@ -156,7 +156,7 @@ export function Thermometer({ config, ref }: ShapeProps) {
             </text>
             <text
               x={W / 2}
-              y={604}
+              y={666}
               textAnchor="middle"
               fontSize={10}
               fontFamily={fonts.labels}
@@ -172,7 +172,7 @@ export function Thermometer({ config, ref }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={636}
+            y={698}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}
@@ -187,7 +187,7 @@ export function Thermometer({ config, ref }: ShapeProps) {
         {!config.show.goal && config.show.percentage && (
           <text
             x={W / 2}
-            y={636}
+            y={698}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}

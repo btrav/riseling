@@ -6,7 +6,7 @@ import { FONT_THEMES } from '../utils/fonts';
 import { useSpring } from '../hooks/useSpring';
 
 const W = 440;
-const H = 600;
+const H = 610;
 const jarX0 = 140;
 const jarX1 = 300;
 const jarY0 = 140;
@@ -148,7 +148,7 @@ export function Jar({ config, ref }: ShapeProps) {
           <>
             <text
               x={W / 2}
-              y={500}
+              y={510}
               textAnchor="middle"
               fontSize={42}
               fontWeight={600}
@@ -159,7 +159,7 @@ export function Jar({ config, ref }: ShapeProps) {
             </text>
             <text
               x={W / 2}
-              y={520}
+              y={530}
               textAnchor="middle"
               fontSize={10}
               fontFamily={fonts.labels}
@@ -175,7 +175,7 @@ export function Jar({ config, ref }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={552}
+            y={562}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}

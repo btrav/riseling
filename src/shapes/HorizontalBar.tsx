@@ -6,7 +6,7 @@ import { FONT_THEMES } from '../utils/fonts';
 import { useSpring } from '../hooks/useSpring';
 
 const W = 560;
-const H = 300;
+const H = 320;
 const barX = 60;
 const barY = 130;
 const barWidth = W - 2 * barX;
@@ -112,7 +112,7 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
           <>
             <text
               x={W / 2}
-              y={225}
+              y={244}
               textAnchor="middle"
               fontSize={42}
               fontWeight={600}
@@ -123,7 +123,7 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
             </text>
             <text
               x={W / 2}
-              y={246}
+              y={265}
               textAnchor="middle"
               fontSize={10}
               fontFamily={fonts.labels}
@@ -139,7 +139,7 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={280}
+            y={299}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}
@@ -154,7 +154,7 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
         {!config.show.goal && config.show.percentage && (
           <text
             x={W / 2}
-            y={280}
+            y={299}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}
