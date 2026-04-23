@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import type { ShapeProps } from '../types';
-import { formatValue, progressPercent } from '../utils/format';
+import { formatValue, formatGoalValue, progressPercent, raisedLabelText } from '../utils/format';
 import { lighten, darken } from '../utils/color';
 import { FONT_THEMES } from '../utils/fonts';
 import { useSpring } from '../hooks/useSpring';
@@ -189,7 +189,7 @@ export function ProgressRing({ config, ref }: ShapeProps) {
               fill="#6b7280"
               letterSpacing="0.1em"
             >
-              RAISED
+              {raisedLabelText(config)}
             </text>
           </>
         )}
@@ -204,7 +204,7 @@ export function ProgressRing({ config, ref }: ShapeProps) {
             fontWeight={400}
             fill="#6b7280"
           >
-            of {formatValue(config.target, config)} goal
+            of {formatGoalValue(config.target, config)} goal
           </text>
         )}
       </g>

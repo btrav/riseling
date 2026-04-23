@@ -3,7 +3,7 @@ import { PreviewCanvas } from './components/PreviewCanvas';
 import { useConfig } from './state/useConfig';
 
 export default function App() {
-  const { config, set } = useConfig();
+  const { config, set, reset } = useConfig();
 
   return (
     <div className="flex h-dvh flex-col bg-gray-50 lg:grid lg:grid-cols-[320px_1fr]">
@@ -11,7 +11,7 @@ export default function App() {
         <PreviewCanvas config={config} />
       </div>
       <div className="order-2 min-h-0 flex-1 lg:order-1 lg:h-full lg:overflow-hidden">
-        <ControlsPanel config={config} set={set} />
+        <ControlsPanel config={config} set={set} reset={reset} />
       </div>
     </div>
   );

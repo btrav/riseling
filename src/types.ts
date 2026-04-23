@@ -21,6 +21,9 @@ export type Config = {
   locale: string;
   unitLabel: string;
   useCurrencyFormat: boolean;
+  impactUnitEnabled: boolean;
+  impactUnitValue: number;
+  impactUnitLabel: string;
   fillColor: string;
   trackColor: string;
   font: FontKey;

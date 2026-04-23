@@ -7,10 +7,33 @@ import { LIVE_SHAPES, SHAPE_LABELS } from '../shapes';
 type Props = {
   config: Config;
   set: (patch: Partial<Config>) => void;
+  reset: () => void;
 };
 
-export function ControlsPanel({ config, set }: Props) {
+type TrackingMode = 'currency' | 'custom' | 'impact';
+
+function currentMode(config: Config): TrackingMode {
+  if (config.impactUnitEnabled) return 'impact';
+  if (config.useCurrencyFormat) return 'currency';
+  return 'custom';
+}
+
+export function ControlsPanel({ config, set, reset }: Props) {
+  function handleReset() {
+    if (window.confirm('Reset all fields to defaults?')) reset();
+  }
   const currencyKey = `${config.currency}:${config.locale}`;
+  const mode = currentMode(config);
+
+  function setMode(next: TrackingMode) {
+    if (next === 'currency') {
+      set({ useCurrencyFormat: true, impactUnitEnabled: false });
+    } else if (next === 'custom') {
+      set({ useCurrencyFormat: false, impactUnitEnabled: false });
+    } else {
+      set({ useCurrencyFormat: true, impactUnitEnabled: true });
+    }
+  }
 
   function handleCurrencyChange(key: string) {
     const [code, locale] = key.split(':');
@@ -74,21 +97,19 @@ export function ControlsPanel({ config, set }: Props) {
 
         <div className="flex flex-col gap-2">
           <span className="text-xs font-medium text-gray-700">Tracking</span>
-          <div className="grid grid-cols-2 gap-2 rounded-md bg-gray-100 p-1">
-            <SegmentButton
-              active={config.useCurrencyFormat}
-              onClick={() => set({ useCurrencyFormat: true })}
-            >
+          <div className="grid grid-cols-3 gap-1 rounded-md bg-gray-100 p-1">
+            <SegmentButton active={mode === 'currency'} onClick={() => setMode('currency')}>
               Currency
             </SegmentButton>
-            <SegmentButton
-              active={!config.useCurrencyFormat}
-              onClick={() => set({ useCurrencyFormat: false })}
-            >
+            <SegmentButton active={mode === 'custom'} onClick={() => setMode('custom')}>
               Custom unit
             </SegmentButton>
+            <SegmentButton active={mode === 'impact'} onClick={() => setMode('impact')}>
+              Impact unit
+            </SegmentButton>
           </div>
-          {config.useCurrencyFormat ? (
+
+          {mode === 'currency' && (
             <select
               value={currencyKey}
               onChange={(e) => handleCurrencyChange(e.target.value)}
@@ -100,7 +121,9 @@ export function ControlsPanel({ config, set }: Props) {
                 </option>
               ))}
             </select>
-          ) : (
+          )}
+
+          {mode === 'custom' && (
             <input
               type="text"
               value={config.unitLabel}
@@ -108,6 +131,50 @@ export function ControlsPanel({ config, set }: Props) {
               placeholder="e.g. books, miles, meals"
               className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
             />
+          )}
+
+          {mode === 'impact' && (
+            <div className="flex flex-col gap-2 rounded-md border border-gray-200 bg-gray-50 p-2.5">
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-medium text-gray-600">
+                  Each unit equals
+                </span>
+                <div className="flex items-center gap-2">
+                  <select
+                    value={currencyKey}
+                    onChange={(e) => handleCurrencyChange(e.target.value)}
+                    className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs"
+                  >
+                    {CURRENCY_PRESETS.map((p) => (
+                      <option key={presetKey(p)} value={presetKey(p)}>
+                        {p.label}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="number"
+                    value={config.impactUnitValue}
+                    onChange={(e) => set({ impactUnitValue: Number(e.target.value) || 0 })}
+                    min={1}
+                    className="w-20 rounded-md border border-gray-300 px-2 py-1 text-xs"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-[11px] font-medium text-gray-600">Unit label</span>
+                <input
+                  type="text"
+                  value={config.impactUnitLabel}
+                  onChange={(e) => set({ impactUnitLabel: e.target.value })}
+                  placeholder="e.g. sessions, meals, books"
+                  className="w-full rounded-md border border-gray-300 px-2 py-1 text-xs"
+                />
+              </div>
+              <p className="text-[10px] leading-snug text-gray-500">
+                Shows progress in units (e.g. “30 sessions funded of 100 goal”) instead of
+                the money total.
+              </p>
+            </div>
           )}
         </div>
 
@@ -166,8 +233,15 @@ export function ControlsPanel({ config, set }: Props) {
         </div>
       </div>
 
-      <div className="mt-auto border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        v0.5.0 · Slice 5
+      <div className="mt-auto flex items-center justify-between border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
+        <span>v0.6.0 · Impact units</span>
+        <button
+          type="button"
+          onClick={handleReset}
+          className="rounded px-2 py-0.5 text-[11px] font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-900"
+        >
+          Reset
+        </button>
       </div>
     </div>
   );
