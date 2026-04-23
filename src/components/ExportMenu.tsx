@@ -9,9 +9,10 @@ type Props = {
   svgRef: React.RefObject<SVGSVGElement | null>;
   config: Config;
   onExported: (message: string) => void;
+  onOpenEmbed: () => void;
 };
 
-export function ExportMenu({ svgRef, config, onExported }: Props) {
+export function ExportMenu({ svgRef, config, onExported, onOpenEmbed }: Props) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -81,7 +82,14 @@ export function ExportMenu({ svgRef, config, onExported }: Props) {
         className="rounded-r-md border-l border-gray-700 bg-gray-900 px-2 py-1.5 text-sm text-white hover:bg-gray-800 disabled:opacity-50"
       >
         <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
-          <path d="M1 3 L5 7 L9 3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M1 3 L5 7 L9 3"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
 
@@ -100,6 +108,21 @@ export function ExportMenu({ svgRef, config, onExported }: Props) {
                 </button>
               </li>
             ))}
+            <li className="border-t border-gray-100">
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  onOpenEmbed();
+                }}
+                className="flex w-full flex-col items-start gap-0.5 px-3 py-2 text-left text-sm hover:bg-gray-50"
+              >
+                <span className="font-medium text-gray-900">Embed · iframe</span>
+                <span className="text-xs text-gray-500">
+                  Live-updating-on-share-no, but stays visible on your site
+                </span>
+              </button>
+            </li>
           </ul>
         </div>
       )}

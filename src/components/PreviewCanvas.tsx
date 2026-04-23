@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import type { Config } from '../types';
 import { SHAPE_REGISTRY } from '../shapes';
 import { ExportMenu } from './ExportMenu';
 import { CopyLinkButton } from './CopyLinkButton';
 import { Toast } from './Toast';
+import { EmbedModal } from './EmbedModal';
 import { useToast } from '../hooks/useToast';
 
 type Props = { config: Config };
@@ -12,6 +13,7 @@ export function PreviewCanvas({ config }: Props) {
   const svgRef = useRef<SVGSVGElement>(null);
   const Shape = SHAPE_REGISTRY[config.shape];
   const { toast, show } = useToast();
+  const [embedOpen, setEmbedOpen] = useState(false);
 
   return (
     <div className="flex h-full flex-col">
@@ -21,7 +23,12 @@ export function PreviewCanvas({ config }: Props) {
         </span>
         <div className="flex items-center gap-2">
           <CopyLinkButton onCopied={show} />
-          <ExportMenu svgRef={svgRef} config={config} onExported={show} />
+          <ExportMenu
+            svgRef={svgRef}
+            config={config}
+            onExported={show}
+            onOpenEmbed={() => setEmbedOpen(true)}
+          />
         </div>
       </div>
       <div className="checkered-bg flex flex-1 items-center justify-center overflow-auto p-4 lg:p-8">
@@ -30,6 +37,12 @@ export function PreviewCanvas({ config }: Props) {
         </div>
       </div>
       <Toast message={toast?.message ?? null} />
+      <EmbedModal
+        open={embedOpen}
+        config={config}
+        onClose={() => setEmbedOpen(false)}
+        onCopied={show}
+      />
     </div>
   );
 }

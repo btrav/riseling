@@ -12,7 +12,7 @@ const barY = 130;
 const barWidth = W - 2 * barX;
 const barHeight = 44;
 
-export function HorizontalBar({ config, ref }: ShapeProps) {
+export function HorizontalBar({ config, ref, fit }: ShapeProps) {
   const targetPercent = progressPercent(config);
   const percent = useSpring(targetPercent);
   const raised = Math.round(useSpring(config.current));
@@ -34,9 +34,14 @@ export function HorizontalBar({ config, ref }: ShapeProps) {
       ref={ref}
       xmlns="http://www.w3.org/2000/svg"
       viewBox={`0 0 ${W} ${H}`}
-      width={W}
-      height={H}
-      style={{ display: 'block' }}
+      width={fit ? '100%' : W}
+      height={fit ? '100%' : H}
+      preserveAspectRatio="xMidYMid meet"
+      style={{
+        display: 'block',
+        maxWidth: fit ? '100%' : undefined,
+        maxHeight: fit ? '100svh' : undefined,
+      }}
     >
       <defs>
         <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <title>Riseling · Fundraising progress</title>
+    <meta name="description" content="A shared fundraising progress meter." />
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; background: Canvas; }
+      body.bg-transparent { background: transparent; }
+      #root { height: 100%; }
+      .rl-placeholder {
+        position: fixed; inset: 0;
+        display: grid; place-items: center;
+        pointer-events: none;
+      }
+      .rl-placeholder svg { width: 56px; height: 56px; opacity: 0.25; }
+      @keyframes rl-pulse { 0%,100%{opacity:0.2} 50%{opacity:0.5} }
+      .rl-placeholder svg { animation: rl-pulse 1.4s ease-in-out infinite; }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="rl-placeholder" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <circle cx="24" cy="24" r="18" fill="none" stroke="currentColor" stroke-width="4" />
+          <path d="M24 8 A16 16 0 0 1 40 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

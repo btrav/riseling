@@ -39,4 +39,5 @@ export type Config = {
 export type ShapeProps = {
   config: Config;
   ref?: React.Ref<SVGSVGElement>;
+  fit?: boolean;
 };

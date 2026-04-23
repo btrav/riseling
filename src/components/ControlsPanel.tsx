@@ -259,7 +259,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
       </div>
 
       <div className="mt-auto flex items-center justify-between border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        <span>v0.6.0 · Impact units</span>
+        <span>v0.8.0 · Viewer + embed</span>
         <button
           type="button"
           onClick={handleReset}
