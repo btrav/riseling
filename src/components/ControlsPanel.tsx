@@ -1,4 +1,4 @@
-import type { Config, ShapeKey } from '../types';
+import type { Config } from '../types';
 import { FONT_THEMES } from '../utils/fonts';
 import type { FontKey } from '../utils/fonts';
 import { CURRENCY_PRESETS, presetKey } from '../utils/currencies';
