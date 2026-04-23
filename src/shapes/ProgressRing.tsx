@@ -1,9 +1,8 @@
-import { useId } from 'react';
 import type { ShapeProps } from '../types';
-import { formatValue, formatGoalValue, progressPercent, raisedLabelText } from '../utils/format';
-import { lighten, darken } from '../utils/color';
-import { FONT_THEMES } from '../utils/fonts';
-import { useSpring } from '../hooks/useSpring';
+import { useShapeState } from './useShapeState';
+import { ShapeFrame } from './ShapeFrame';
+import { TitleCaption } from './primitives';
+import { formatValue, formatGoalValue, raisedLabelText } from '../utils/format';
 
 const W = 440;
 const H = 560;
@@ -14,78 +13,29 @@ const strokeWidth = 32;
 const circumference = 2 * Math.PI * r;
 
 export function ProgressRing({ config, ref, fit }: ShapeProps) {
-  const targetPercent = progressPercent(config);
-  const percent = useSpring(targetPercent);
-  const raised = Math.round(useSpring(config.current));
+  const state = useShapeState(config);
+  const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
 
-  const fonts = FONT_THEMES[config.font].families;
   const dashOffset = circumference * (1 - percent / 100);
-  const displayPercent = Math.round(percent);
-  const renderedConfig = { ...config, current: raised };
-
-  const gradId = useId();
-
-  const fillLight = lighten(config.fillColor, 0.22);
-  const fillShadow = darken(config.fillColor, 0.12);
-  const trackBorder = darken(config.trackColor, 0.18);
 
   return (
-    <svg
-      ref={ref}
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox={`0 0 ${W} ${H}`}
-      width={fit ? '100%' : W}
-      height={fit ? '100%' : H}
-      preserveAspectRatio="xMidYMid meet"
-      style={{
-        display: 'block',
-        maxWidth: fit ? '100%' : undefined,
-        maxHeight: fit ? '100svh' : undefined,
-      }}
-    >
+    <ShapeFrame width={W} height={H} fit={fit} ref={ref}>
       <defs>
         <linearGradient
-          id={gradId}
+          id={ids.gradId}
           x1={cx - r}
           y1={cy - r}
           x2={cx + r}
           y2={cy + r}
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor={fillLight} />
+          <stop offset="0" stopColor={colors.fillLight} />
           <stop offset="0.5" stopColor={config.fillColor} />
-          <stop offset="1" stopColor={fillShadow} />
+          <stop offset="1" stopColor={colors.fillShadow} />
         </linearGradient>
       </defs>
 
-      {config.show.title && config.title && (
-        <text
-          x={W / 2}
-          y={50}
-          textAnchor="middle"
-          fontSize={28}
-          fontWeight={600}
-          fill="#111827"
-          fontFamily={fonts.title}
-          letterSpacing="-0.01em"
-        >
-          {config.title}
-        </text>
-      )}
-
-      {config.show.caption && config.caption && (
-        <text
-          x={W / 2}
-          y={78}
-          textAnchor="middle"
-          fontSize={13}
-          fontFamily={fonts.labels}
-          fill="#6b7280"
-          letterSpacing="0.02em"
-        >
-          {config.caption}
-        </text>
-      )}
+      <TitleCaption config={config} fonts={fonts} width={W} titleY={50} captionY={78} />
 
       <circle
         cx={cx}
@@ -100,7 +50,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
         cy={cy}
         r={r}
         fill="none"
-        stroke={trackBorder}
+        stroke={colors.trackBorder}
         strokeWidth={1.5}
         vectorEffect="non-scaling-stroke"
       />
@@ -109,7 +59,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
         cy={cy}
         r={r + strokeWidth / 2}
         fill="none"
-        stroke={trackBorder}
+        stroke={colors.trackBorder}
         strokeWidth={1}
         opacity={0.25}
         vectorEffect="non-scaling-stroke"
@@ -120,7 +70,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
         cy={cy}
         r={r}
         fill="none"
-        stroke={`url(#${gradId})`}
+        stroke={`url(#${ids.gradId})`}
         strokeWidth={strokeWidth}
         strokeLinecap="round"
         strokeDasharray={circumference}
@@ -213,6 +163,6 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
           </text>
         )}
       </g>
-    </svg>
+    </ShapeFrame>
   );
 }
