@@ -16,7 +16,9 @@ export function PreviewCanvas({ config }: Props) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center justify-between gap-2 border-b border-gray-200 px-4 py-3 lg:px-6">
-        <span className="text-sm font-medium text-gray-600">Preview</span>
+        <span className="font-display text-base font-semibold tracking-tight text-gray-700">
+          Preview
+        </span>
         <div className="flex items-center gap-2">
           <CopyLinkButton onCopied={show} />
           <ExportMenu svgRef={svgRef} config={config} onExported={show} />
