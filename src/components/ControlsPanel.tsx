@@ -3,6 +3,8 @@ import { FONT_THEMES } from '../utils/fonts';
 import type { FontKey } from '../utils/fonts';
 import { CURRENCY_PRESETS, presetKey } from '../utils/currencies';
 import { LIVE_SHAPES, SHAPE_LABELS } from '../shapes';
+import { SHAPE_ICONS } from '../shapes/icons';
+import { progressPercent } from '../utils/format';
 
 type Props = {
   config: Config;
@@ -83,19 +85,40 @@ export function ControlsPanel({ config, set, reset }: Props) {
           />
         </Field>
 
-        <Field label="Shape">
-          <select
-            value={config.shape}
-            onChange={(e) => set({ shape: e.target.value as ShapeKey })}
-            className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm"
-          >
-            {LIVE_SHAPES.map((k) => (
-              <option key={k} value={k}>
-                {SHAPE_LABELS[k]}
-              </option>
-            ))}
-          </select>
-        </Field>
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-medium text-gray-700">Shape</span>
+          <div className="grid grid-cols-3 gap-2">
+            {LIVE_SHAPES.map((k) => {
+              const Icon = SHAPE_ICONS[k];
+              const active = config.shape === k;
+              return (
+                <button
+                  type="button"
+                  key={k}
+                  onClick={() => set({ shape: k })}
+                  aria-label={SHAPE_LABELS[k]}
+                  title={SHAPE_LABELS[k]}
+                  aria-pressed={active}
+                  className={
+                    'group flex aspect-square items-center justify-center rounded-md border bg-white p-1.5 transition-all ' +
+                    (active
+                      ? 'border-gray-900 shadow-sm ring-1 ring-gray-900'
+                      : 'border-gray-200 hover:border-gray-400')
+                  }
+                >
+                  <Icon
+                    percent={progressPercent(config)}
+                    fillColor={config.fillColor}
+                    trackColor={config.trackColor}
+                  />
+                </button>
+              );
+            })}
+          </div>
+          <span className="text-[11px] text-gray-500">
+            {SHAPE_LABELS[config.shape]}
+          </span>
+        </div>
 
         <div className="flex flex-col gap-2">
           <span className="text-xs font-medium text-gray-700">Tracking</span>
