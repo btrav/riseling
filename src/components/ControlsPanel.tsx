@@ -17,6 +17,10 @@ export function ControlsPanel({ config, set }: Props) {
     if (code && locale) set({ currency: code, locale });
   }
 
+  function toggleVisibility(key: keyof Config['show']) {
+    set({ show: { ...config.show, [key]: !config.show[key] } });
+  }
+
   return (
     <div className="flex h-full flex-col overflow-y-auto border-t border-gray-200 bg-white lg:border-t-0 lg:border-r">
       <div className="border-b border-gray-200 px-5 py-4">
@@ -117,6 +121,17 @@ export function ControlsPanel({ config, set }: Props) {
           />
         </Field>
 
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-medium text-gray-700">Show / hide</span>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+            <Toggle label="Title" checked={config.show.title} onChange={() => toggleVisibility('title')} />
+            <Toggle label="Caption" checked={config.show.caption} onChange={() => toggleVisibility('caption')} />
+            <Toggle label="Raised" checked={config.show.raised} onChange={() => toggleVisibility('raised')} />
+            <Toggle label="Goal" checked={config.show.goal} onChange={() => toggleVisibility('goal')} />
+            <Toggle label="Percent" checked={config.show.percentage} onChange={() => toggleVisibility('percentage')} />
+          </div>
+        </div>
+
         <Field label="Font">
           <select
             value={config.font}
@@ -152,7 +167,7 @@ export function ControlsPanel({ config, set }: Props) {
       </div>
 
       <div className="mt-auto border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        v0.3.0 · Slice 4
+        v0.5.0 · Slice 5
       </div>
     </div>
   );
@@ -187,5 +202,27 @@ function SegmentButton({
     >
       {children}
     </button>
+  );
+}
+
+function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label className="flex cursor-pointer items-center gap-2 text-sm">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="h-4 w-4 cursor-pointer rounded border-gray-300 accent-gray-900"
+      />
+      <span className="text-gray-700">{label}</span>
+    </label>
   );
 }

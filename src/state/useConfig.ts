@@ -6,7 +6,10 @@ import { FONT_THEMES } from '../utils/fonts';
 
 const FONT_KEYS = Object.keys(FONT_THEMES) as FontKey[];
 
+export const CONFIG_VERSION = 1;
+
 const defaults = {
+  v: CONFIG_VERSION,
   s: 'thermometer',
   g: 8000,
   r: 3400,
@@ -31,6 +34,7 @@ export function useConfig(): {
   set: (patch: Partial<Config>) => void;
 } {
   const [state, setState] = useQueryStates({
+    v: parseAsInteger.withDefault(defaults.v),
     s: parseAsString.withDefault(defaults.s),
     g: parseAsInteger.withDefault(defaults.g),
     r: parseAsInteger.withDefault(defaults.r),
