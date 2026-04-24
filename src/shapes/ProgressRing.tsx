@@ -5,9 +5,9 @@ import { TitleCaption } from './primitives';
 import { formatValue, formatGoalValue, raisedLabelText } from '../utils/format';
 
 const W = 440;
-const H = 560;
+const H = 500;
 const cx = W / 2;
-const cy = 260;
+const cy = 230;
 const r = 130;
 const strokeWidth = 32;
 const circumference = 2 * Math.PI * r;
@@ -17,6 +17,9 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
 
   const dashOffset = circumference * (1 - percent / 100);
+
+  const insidePercentMode = config.show.percentage;
+  const insideRaisedMode = !config.show.percentage && config.show.raised;
 
   return (
     <ShapeFrame width={W} height={H} fit={fit} ref={ref}>
@@ -79,7 +82,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
       />
 
       <g fontFamily={fonts.numbers} style={{ fontVariantNumeric: 'tabular-nums' }}>
-        {config.show.percentage ? (
+        {insidePercentMode && (
           <>
             <text
               x={cx}
@@ -94,22 +97,24 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
             </text>
             <text
               x={cx}
-              y={cy + 28}
+              y={cy + 26}
               textAnchor="middle"
               fontSize={12}
               fontFamily={fonts.labels}
               fontWeight={500}
               fill="#6b7280"
-              letterSpacing="0.1em"
+              letterSpacing="0.08em"
             >
               OF GOAL
             </text>
           </>
-        ) : (
-          config.show.raised && (
+        )}
+
+        {insideRaisedMode && (
+          <>
             <text
               x={cx}
-              y={cy + 10}
+              y={cy - 2}
               textAnchor="middle"
               fontSize={38}
               fontWeight={600}
@@ -118,25 +123,9 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
             >
               {formatValue(raised, renderedConfig)}
             </text>
-          )
-        )}
-
-        {config.show.raised && config.show.percentage && (
-          <>
             <text
-              x={W / 2}
-              y={470}
-              textAnchor="middle"
-              fontSize={32}
-              fontWeight={600}
-              fill="#0f172a"
-              letterSpacing="-0.02em"
-            >
-              {formatValue(raised, renderedConfig)}
-            </text>
-            <text
-              x={W / 2}
-              y={492}
+              x={cx}
+              y={cy + 24}
               textAnchor="middle"
               fontSize={10}
               fontFamily={fonts.labels}
@@ -152,14 +141,16 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={config.show.raised && config.show.percentage ? 524 : 470}
+            y={446}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}
             fontWeight={400}
             fill="#6b7280"
           >
-            of {formatGoalValue(config.target, config)} goal
+            {config.show.percentage && config.show.raised
+              ? `${formatValue(raised, renderedConfig)} of ${formatGoalValue(config.target, config)}`
+              : `of ${formatGoalValue(config.target, config)} goal`}
           </text>
         )}
       </g>
