@@ -5,32 +5,34 @@ import { TitleCaption, StandardLabels } from './primitives';
 import { darken } from '../utils/color';
 
 const W = 440;
-const H = 610;
 const jarX0 = 140;
 const jarX1 = 300;
-const jarY0 = 140;
-const jarY1 = 440;
 const topR = 10;
 const bottomR = 32;
-
-const jarPath = [
-  `M ${jarX0 + topR} ${jarY0}`,
-  `L ${jarX1 - topR} ${jarY0}`,
-  `A ${topR} ${topR} 0 0 1 ${jarX1} ${jarY0 + topR}`,
-  `L ${jarX1} ${jarY1 - bottomR}`,
-  `A ${bottomR} ${bottomR} 0 0 1 ${jarX1 - bottomR} ${jarY1}`,
-  `L ${jarX0 + bottomR} ${jarY1}`,
-  `A ${bottomR} ${bottomR} 0 0 1 ${jarX0} ${jarY1 - bottomR}`,
-  `L ${jarX0} ${jarY0 + topR}`,
-  `A ${topR} ${topR} 0 0 1 ${jarX0 + topR} ${jarY0}`,
-  'Z',
-].join(' ');
-
-const rimY = jarY0 + 16;
 
 export function Jar({ config, ref, fit }: ShapeProps) {
   const state = useShapeState(config);
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
+
+  const hasCaption = config.show.caption && !!config.caption.trim();
+  const topOffset = hasCaption ? 20 : 0;
+  const H = 610 + topOffset;
+  const jarY0 = 140 + topOffset;
+  const jarY1 = 440 + topOffset;
+  const rimY = jarY0 + 16;
+
+  const jarPath = [
+    `M ${jarX0 + topR} ${jarY0}`,
+    `L ${jarX1 - topR} ${jarY0}`,
+    `A ${topR} ${topR} 0 0 1 ${jarX1} ${jarY0 + topR}`,
+    `L ${jarX1} ${jarY1 - bottomR}`,
+    `A ${bottomR} ${bottomR} 0 0 1 ${jarX1 - bottomR} ${jarY1}`,
+    `L ${jarX0 + bottomR} ${jarY1}`,
+    `A ${bottomR} ${bottomR} 0 0 1 ${jarX0} ${jarY1 - bottomR}`,
+    `L ${jarX0} ${jarY0 + topR}`,
+    `A ${topR} ${topR} 0 0 1 ${jarX0 + topR} ${jarY0}`,
+    'Z',
+  ].join(' ');
 
   const fillHeight = ((jarY1 - rimY) * percent) / 100;
   const clipY = jarY1 - fillHeight;
@@ -102,9 +104,9 @@ export function Jar({ config, ref, fit }: ShapeProps) {
         raised={raised}
         displayPercent={displayPercent}
         renderedConfig={renderedConfig}
-        raisedY={510}
-        raisedLabelY={530}
-        goalY={562}
+        raisedY={510 + topOffset}
+        raisedLabelY={530 + topOffset}
+        goalY={562 + topOffset}
       />
     </ShapeFrame>
   );

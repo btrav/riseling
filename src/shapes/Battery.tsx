@@ -4,14 +4,11 @@ import { ShapeFrame } from './ShapeFrame';
 import { TitleCaption, StandardLabels } from './primitives';
 
 const W = 560;
-const H = 380;
 const bodyX = 70;
-const bodyY = 130;
 const bodyWidth = 400;
 const bodyHeight = 100;
 const bodyR = 18;
 const termX = bodyX + bodyWidth;
-const termY = bodyY + 30;
 const termWidth = 14;
 const termHeight = 40;
 const termR = 4;
@@ -20,6 +17,12 @@ const innerPad = 8;
 export function Battery({ config, ref, fit }: ShapeProps) {
   const state = useShapeState(config);
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
+
+  const hasCaption = config.show.caption && !!config.caption.trim();
+  const topOffset = hasCaption ? 20 : 0;
+  const H = 380 + topOffset;
+  const bodyY = 130 + topOffset;
+  const termY = bodyY + 30;
 
   const fillAreaWidth = bodyWidth - 2 * innerPad;
   const fillWidth = Math.max(0, (fillAreaWidth * percent) / 100);
@@ -99,9 +102,9 @@ export function Battery({ config, ref, fit }: ShapeProps) {
         raised={raised}
         displayPercent={displayPercent}
         renderedConfig={renderedConfig}
-        raisedY={294}
-        raisedLabelY={316}
-        goalY={350}
+        raisedY={294 + topOffset}
+        raisedLabelY={316 + topOffset}
+        goalY={350 + topOffset}
         raisedSize={40}
       />
     </ShapeFrame>

@@ -4,36 +4,36 @@ import { ShapeFrame } from './ShapeFrame';
 import { TitleCaption, StandardLabels } from './primitives';
 
 const W = 440;
-const H = 620;
-
 const heartCx = W / 2;
-const heartTop = 130;
-const heartBottom = 410;
 const heartWidth = 280;
-const heartHeight = heartBottom - heartTop;
 const heartX = heartCx - heartWidth / 2;
-
-function heartPath(): string {
-  const x = heartX;
-  const y = heartTop;
-  const w = heartWidth;
-  const h = heartHeight;
-  const notchY = y + h * 0.3;
-  return [
-    `M ${x + w / 2} ${notchY}`,
-    `C ${x + w * 0.2} ${y}, ${x} ${y + h * 0.15}, ${x} ${y + h * 0.4}`,
-    `C ${x} ${y + h * 0.6}, ${x + w * 0.3} ${y + h * 0.78}, ${x + w / 2} ${y + h}`,
-    `C ${x + w * 0.7} ${y + h * 0.78}, ${x + w} ${y + h * 0.6}, ${x + w} ${y + h * 0.4}`,
-    `C ${x + w} ${y + h * 0.15}, ${x + w * 0.8} ${y}, ${x + w / 2} ${notchY}`,
-    'Z',
-  ].join(' ');
-}
-
-const path = heartPath();
 
 export function Heart({ config, ref, fit }: ShapeProps) {
   const state = useShapeState(config);
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
+
+  const hasCaption = config.show.caption && !!config.caption.trim();
+  const topOffset = hasCaption ? 20 : 0;
+  const H = 620 + topOffset;
+  const heartTop = 130 + topOffset;
+  const heartBottom = 410 + topOffset;
+  const heartHeight = heartBottom - heartTop;
+
+  const path = (() => {
+    const x = heartX;
+    const y = heartTop;
+    const w = heartWidth;
+    const h = heartHeight;
+    const notchY = y + h * 0.3;
+    return [
+      `M ${x + w / 2} ${notchY}`,
+      `C ${x + w * 0.2} ${y}, ${x} ${y + h * 0.15}, ${x} ${y + h * 0.4}`,
+      `C ${x} ${y + h * 0.6}, ${x + w * 0.3} ${y + h * 0.78}, ${x + w / 2} ${y + h}`,
+      `C ${x + w * 0.7} ${y + h * 0.78}, ${x + w} ${y + h * 0.6}, ${x + w} ${y + h * 0.4}`,
+      `C ${x + w} ${y + h * 0.15}, ${x + w * 0.8} ${y}, ${x + w / 2} ${notchY}`,
+      'Z',
+    ].join(' ');
+  })();
 
   const fillHeight = (heartHeight * percent) / 100;
   const clipY = heartBottom - fillHeight;
@@ -95,9 +95,9 @@ export function Heart({ config, ref, fit }: ShapeProps) {
         raised={raised}
         displayPercent={displayPercent}
         renderedConfig={renderedConfig}
-        raisedY={480}
-        raisedLabelY={502}
-        goalY={540}
+        raisedY={480 + topOffset}
+        raisedLabelY={502 + topOffset}
+        goalY={540 + topOffset}
       />
     </ShapeFrame>
   );

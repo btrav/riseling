@@ -4,30 +4,32 @@ import { ShapeFrame } from './ShapeFrame';
 import { TitleCaption, StandardLabels } from './primitives';
 
 const W = 440;
-const H = 720;
-
 const tubeW = 74;
 const tubeX = (W - tubeW) / 2;
-const tubeTop = 110;
 const bulbR = 58;
-const bulbCY = 488;
 const cx = tubeX + tubeW / 2;
-
-const topArcEndY = tubeTop + tubeW / 2;
-const bulbMeetY = bulbCY - Math.sqrt(bulbR * bulbR - (tubeW / 2) * (tubeW / 2));
-const tubeUsable = bulbMeetY - topArcEndY;
-
-const trackPath = [
-  `M ${tubeX} ${topArcEndY}`,
-  `A ${tubeW / 2} ${tubeW / 2} 0 0 1 ${tubeX + tubeW} ${topArcEndY}`,
-  `L ${tubeX + tubeW} ${bulbMeetY}`,
-  `A ${bulbR} ${bulbR} 0 1 1 ${tubeX} ${bulbMeetY}`,
-  'Z',
-].join(' ');
 
 export function Thermometer({ config, ref, fit }: ShapeProps) {
   const state = useShapeState(config);
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
+
+  const hasCaption = config.show.caption && !!config.caption.trim();
+  const topOffset = hasCaption ? 20 : 0;
+  const H = 720 + topOffset;
+  const tubeTop = 110 + topOffset;
+  const bulbCY = 488 + topOffset;
+
+  const topArcEndY = tubeTop + tubeW / 2;
+  const bulbMeetY = bulbCY - Math.sqrt(bulbR * bulbR - (tubeW / 2) * (tubeW / 2));
+  const tubeUsable = bulbMeetY - topArcEndY;
+
+  const trackPath = [
+    `M ${tubeX} ${topArcEndY}`,
+    `A ${tubeW / 2} ${tubeW / 2} 0 0 1 ${tubeX + tubeW} ${topArcEndY}`,
+    `L ${tubeX + tubeW} ${bulbMeetY}`,
+    `A ${bulbR} ${bulbR} 0 1 1 ${tubeX} ${bulbMeetY}`,
+    'Z',
+  ].join(' ');
 
   const fillTubeHeight = (tubeUsable * percent) / 100;
   const clipY = bulbMeetY - fillTubeHeight;
@@ -98,9 +100,9 @@ export function Thermometer({ config, ref, fit }: ShapeProps) {
         raised={raised}
         displayPercent={displayPercent}
         renderedConfig={renderedConfig}
-        raisedY={644}
-        raisedLabelY={666}
-        goalY={698}
+        raisedY={644 + topOffset}
+        raisedLabelY={666 + topOffset}
+        goalY={698 + topOffset}
       />
     </ShapeFrame>
   );

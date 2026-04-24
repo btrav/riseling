@@ -4,15 +4,18 @@ import { ShapeFrame } from './ShapeFrame';
 import { TitleCaption, StandardLabels } from './primitives';
 
 const W = 560;
-const H = 320;
 const barX = 60;
-const barY = 130;
 const barWidth = W - 2 * barX;
 const barHeight = 44;
 
 export function HorizontalBar({ config, ref, fit }: ShapeProps) {
   const state = useShapeState(config);
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
+
+  const hasCaption = config.show.caption && !!config.caption.trim();
+  const topOffset = hasCaption ? 20 : 0;
+  const H = 320 + topOffset;
+  const barY = 130 + topOffset;
 
   const fillWidth = Math.max(0, (barWidth * percent) / 100);
 
@@ -67,9 +70,9 @@ export function HorizontalBar({ config, ref, fit }: ShapeProps) {
         raised={raised}
         displayPercent={displayPercent}
         renderedConfig={renderedConfig}
-        raisedY={244}
-        raisedLabelY={265}
-        goalY={299}
+        raisedY={244 + topOffset}
+        raisedLabelY={265 + topOffset}
+        goalY={299 + topOffset}
       />
     </ShapeFrame>
   );
