@@ -5,9 +5,6 @@ import { TitleCaption } from './primitives';
 import { formatValue, formatGoalValue, raisedLabelText } from '../utils/format';
 
 const W = 440;
-const H = 500;
-const cx = W / 2;
-const cy = 230;
 const r = 130;
 const strokeWidth = 32;
 const circumference = 2 * Math.PI * r;
@@ -15,6 +12,12 @@ const circumference = 2 * Math.PI * r;
 export function ProgressRing({ config, ref, fit }: ShapeProps) {
   const state = useShapeState(config);
   const { percent, fonts, colors, ids, raised, displayPercent, renderedConfig } = state;
+
+  const hasCaption = config.show.caption && !!config.caption.trim();
+  const cy = hasCaption ? 252 : 230;
+  const H = hasCaption ? 520 : 500;
+  const goalY = hasCaption ? 468 : 446;
+  const cx = W / 2;
 
   const dashOffset = circumference * (1 - percent / 100);
 
@@ -86,7 +89,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
           <>
             <text
               x={cx}
-              y={cy - 6}
+              y={cy + 22}
               textAnchor="middle"
               fontSize={64}
               fontWeight={600}
@@ -97,7 +100,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
             </text>
             <text
               x={cx}
-              y={cy + 26}
+              y={cy + 48}
               textAnchor="middle"
               fontSize={12}
               fontFamily={fonts.labels}
@@ -114,7 +117,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
           <>
             <text
               x={cx}
-              y={cy - 2}
+              y={cy + 13}
               textAnchor="middle"
               fontSize={38}
               fontWeight={600}
@@ -125,7 +128,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
             </text>
             <text
               x={cx}
-              y={cy + 24}
+              y={cy + 36}
               textAnchor="middle"
               fontSize={10}
               fontFamily={fonts.labels}
@@ -141,7 +144,7 @@ export function ProgressRing({ config, ref, fit }: ShapeProps) {
         {config.show.goal && (
           <text
             x={W / 2}
-            y={446}
+            y={goalY}
             textAnchor="middle"
             fontSize={14}
             fontFamily={fonts.labels}
