@@ -61,7 +61,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
             type="text"
             value={config.title}
             onChange={(e) => set({ title: e.target.value })}
-            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
+            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-base lg:text-sm"
           />
         </Field>
 
@@ -71,7 +71,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
             value={config.target}
             onChange={(e) => set({ target: Number(e.target.value) || 0 })}
             min={0}
-            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
+            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-base lg:text-sm"
           />
         </Field>
 
@@ -81,7 +81,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
             value={config.current}
             onChange={(e) => set({ current: Number(e.target.value) || 0 })}
             min={0}
-            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
+            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-base lg:text-sm"
           />
         </Field>
 
@@ -138,7 +138,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
             <select
               value={currencyKey}
               onChange={(e) => handleCurrencyChange(e.target.value)}
-              className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm"
+              className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-base lg:text-sm"
             >
               {CURRENCY_PRESETS.map((p) => (
                 <option key={presetKey(p)} value={presetKey(p)}>
@@ -154,7 +154,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
               value={config.unitLabel}
               onChange={(e) => set({ unitLabel: e.target.value })}
               placeholder="e.g. books, miles, meals"
-              className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
+              className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-base lg:text-sm"
             />
           )}
 
@@ -168,7 +168,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
                   <select
                     value={currencyKey}
                     onChange={(e) => handleCurrencyChange(e.target.value)}
-                    className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-xs"
+                    className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2 py-1 text-base lg:text-xs"
                   >
                     {CURRENCY_PRESETS.map((p) => (
                       <option key={presetKey(p)} value={presetKey(p)}>
@@ -181,7 +181,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
                     value={config.impactUnitValue}
                     onChange={(e) => set({ impactUnitValue: Number(e.target.value) || 0 })}
                     min={1}
-                    className="w-20 rounded-md border border-gray-300 px-2 py-1 text-xs"
+                    className="w-20 rounded-md border border-gray-300 px-2 py-1 text-base lg:text-xs"
                   />
                 </div>
               </div>
@@ -192,7 +192,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
                   value={config.impactUnitLabel}
                   onChange={(e) => set({ impactUnitLabel: e.target.value })}
                   placeholder="e.g. sessions, meals, books"
-                  className="w-full rounded-md border border-gray-300 px-2 py-1 text-xs"
+                  className="w-full rounded-md border border-gray-300 px-2 py-1 text-base lg:text-xs"
                 />
               </div>
               <p className="text-[10px] leading-snug text-gray-500">
@@ -209,7 +209,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
             value={config.caption}
             onChange={(e) => set({ caption: e.target.value })}
             placeholder="e.g. Ends Friday"
-            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm"
+            className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-base lg:text-sm"
           />
         </Field>
 
@@ -228,7 +228,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
           <select
             value={config.font}
             onChange={(e) => set({ font: e.target.value as FontKey })}
-            className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-sm"
+            className="w-full rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-base lg:text-sm"
           >
             {Object.values(FONT_THEMES).map((theme) => (
               <option key={theme.key} value={theme.key}>

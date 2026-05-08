@@ -121,7 +121,7 @@ export function EmbedModal({ open, config, onClose, onCopied }: Props) {
                   type="number"
                   value={width}
                   onChange={(e) => setWidth(Math.max(120, Number(e.target.value) || 0))}
-                  className="rounded-md border border-gray-300 px-2 py-1 text-sm"
+                  className="rounded-md border border-gray-300 px-2 py-1 text-base lg:text-sm"
                 />
               </label>
               <label className="flex flex-col gap-1 text-xs">
@@ -130,7 +130,7 @@ export function EmbedModal({ open, config, onClose, onCopied }: Props) {
                   type="number"
                   value={height}
                   onChange={(e) => setHeight(Math.max(120, Number(e.target.value) || 0))}
-                  className="rounded-md border border-gray-300 px-2 py-1 text-sm"
+                  className="rounded-md border border-gray-300 px-2 py-1 text-base lg:text-sm"
                 />
               </label>
             </div>
@@ -196,7 +196,7 @@ export function EmbedModal({ open, config, onClose, onCopied }: Props) {
             readOnly
             value={snippet}
             rows={4}
-            className="w-full resize-none rounded-md border border-gray-300 bg-white px-3 py-2 font-mono text-xs text-gray-800"
+            className="w-full resize-none rounded-md border border-gray-300 bg-white px-3 py-2 font-mono text-base text-gray-800 lg:text-xs"
             onFocus={(e) => e.currentTarget.select()}
           />
           <div className="flex items-center justify-end gap-2">
