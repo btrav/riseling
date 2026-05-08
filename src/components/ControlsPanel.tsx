@@ -2,6 +2,7 @@ import type { Config } from '../types';
 import { FONT_THEMES } from '../utils/fonts';
 import type { FontKey } from '../utils/fonts';
 import { CURRENCY_PRESETS, presetKey } from '../utils/currencies';
+import { COLOR_PRESETS } from '../utils/colorPresets';
 import { LIVE_SHAPES, SHAPE_LABELS } from '../shapes';
 import { SHAPE_ICONS } from '../shapes/icons';
 import { progressPercent } from '../utils/format';
@@ -238,6 +239,36 @@ export function ControlsPanel({ config, set, reset }: Props) {
           </select>
         </Field>
 
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-medium text-gray-700">Color presets</span>
+          <div className="flex flex-wrap gap-2">
+            {COLOR_PRESETS.map((preset) => {
+              const active =
+                config.fillColor.toLowerCase() === preset.fill.toLowerCase() &&
+                config.trackColor.toLowerCase() === preset.track.toLowerCase();
+              return (
+                <button
+                  type="button"
+                  key={preset.label}
+                  onClick={() =>
+                    set({ fillColor: preset.fill, trackColor: preset.track })
+                  }
+                  aria-label={`${preset.label} preset`}
+                  title={preset.label}
+                  aria-pressed={active}
+                  className={
+                    'h-7 w-7 rounded-full border-2 transition-all ' +
+                    (active
+                      ? 'border-gray-900 shadow-sm ring-2 ring-gray-300 ring-offset-1'
+                      : 'border-white shadow-sm hover:scale-110')
+                  }
+                  style={{ backgroundColor: preset.fill }}
+                />
+              );
+            })}
+          </div>
+        </div>
+
         <div className="grid grid-cols-2 gap-3">
           <Field label="Fill color">
             <input
@@ -259,7 +290,7 @@ export function ControlsPanel({ config, set, reset }: Props) {
       </div>
 
       <div className="mt-auto flex items-center justify-between border-t border-gray-200 px-5 py-3 text-[11px] text-gray-400">
-        <span>v0.9.0 · Refactor + spacing</span>
+        <span>v0.9.1 · Color presets</span>
         <button
           type="button"
           onClick={handleReset}
