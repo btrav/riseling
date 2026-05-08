@@ -1,126 +1,102 @@
-```
-  ┌─────────────────────────────────┐
-  │                                 │
-  │         Library Fund            │
-  │                                 │
-  │             ___                 │
-  │            |   |                │
-  │            |   |                │
-  │            |   |                │
-  │            |▓▓▓|                │
-  │            |▓▓▓|                │
-  │           /▓▓▓▓▓\               │
-  │          |▓▓▓▓▓▓▓|              │
-  │           \▓▓▓▓▓/               │
-  │                                 │
-  │            $3,400               │
-  │             RAISED              │
-  │         of $8,000 goal          │
-  │                                 │
-  └─────────────────────────────────┘
-```
+<div align="center">
+  <img src="public/og.png" alt="Riseling — Fundraising progress images you can actually control" width="720"/>
+</div>
 
 # Riseling
 
 **Fundraising progress images you can actually control.**
-
-Set a goal, a raised amount, a title, and colors. Preview updates live.
-Download a PNG. Share a link that restores the exact same config.
+Any currency, any unit, shareable by link.
 
 **[→ Try it live](https://benjamintravis.com/riseling/)**
 
 ---
 
-## What it does
+## What it is
 
-Nonprofits, mutual aid organizers, campaign managers, and people running
-personal fundraisers all end up needing the same thing: a clean progress
-image to drop into an email, a tweet, a Slack post, or a donation page.
+A browser tool for generating fundraising progress graphics, client-side.
+Pick a shape, set a goal and a raised amount, type a title, choose colors
+and a font theme. The preview updates as you type. Download a PNG, copy a
+link, or embed an iframe.
 
-Riseling is a browser tool that generates fundraising progress graphics
-client-side. Configure the goal, the raised amount, the title, the colors,
-and the font. Watch the preview update as you type. Export a PNG when you're
-ready.
-
-The entire config encodes into the URL, so every preview doubles as a
+The whole config encodes into the URL, so every preview doubles as a
 shareable link. Bookmark it, paste it into a doc, send it to a teammate.
-They see what you see.
+They see what you see. Nothing is uploaded.
 
-Nothing is uploaded. Everything runs in the browser.
-
----
-
-## Money, or whatever you're counting
-
-Progress doesn't have to be about dollars.
-
-Riseling uses locale-aware `Intl.NumberFormat` for currencies. A German
-campaign shows `4.500,00 €`, a US one shows `$4,500.00`, no manual
-setup. The unit label is free text, which means you can track books
-collected, meals served, miles run, signatures gathered, or counseling
-sessions funded. If it has a target and a current count, it fits.
+Six shapes ship today: **thermometer, horizontal bar, progress ring, jar,
+heart, battery.** All shapes use the same controls, so switching between
+them is instant.
 
 ---
 
-## What's included
+## Why it exists
 
-- **Six meter shapes** on the way: thermometer (shipping), horizontal bar, progress ring, jar, battery, heart
-- **Live preview** that updates as you edit
-- **URL-encoded state** so every config is a shareable link
-- **Multi-currency** with locale-aware formatting
-- **Free-text units** for tracking anything countable
-- **Three font themes**: System, Editorial (Fraunces + Inter), Serif Display (Instrument Serif + Inter)
-- **Fonts embed into the PNG export**, so the download matches the preview
-- **Spring-animated fill** on value changes
-- **One-click PNG download** at 3x pixel ratio
+The fundraising thermometer generators that already exist are mostly
+one-shot tools. Type a goal, click generate, get a static image. Most
+handle US dollars only. A few add a watermark. None of them let you embed
+the result.
+
+I wanted a live configurator. Pick the shape, the colors, the font.
+Type the numbers. Watch the meter update. Download a clean PNG that
+matches the preview, font and all. Paste a link to a teammate and have
+them open the exact same configuration. Drop an iframe into a campaign
+page. Track meals served, miles run, books donated, or any other unit
+that isn't dollars.
+
+That tool didn't exist, so this one does.
 
 ---
 
-## Status
+## What's in it
 
-**v0.1.1** — alpha, under active development.
+**Six meter shapes.** Thermometer, horizontal bar, progress ring, jar,
+heart, battery. All gradient-filled with subtle highlights. Visual picker
+in the editor.
 
-Shipping now:
-- Thermometer shape with full feature support
-- Live preview, PNG export, URL state, multi-currency, free-text units, font themes, animated fill
+**Three tracking modes.** Currency mode (21 locale-aware presets via
+`Intl.NumberFormat`). Custom-unit mode for free-text labels (books,
+miles, meals). Impact-unit mode for the "$250 = 1 counseling session"
+reframing, where the meter fills in units instead of dollars.
 
-On the roadmap:
-- The other five shapes (bar, ring, jar, battery, heart) wired up
-- Show/hide toggles for individual preview elements
-- Command palette for keyboard-driven editing
-- Logo upload and custom SVG shape upload
-- Animated export (GIF/MP4)
-- Impact-unit mode: define `$250 = 1 counseling session` and fill the meter in sessions instead of dollars
+**Six font themes.** System sans, Editorial (Fraunces + Inter, default),
+Serif Display (Instrument Serif), Modern (Space Grotesk), Classic
+(Playfair Display), Mono (JetBrains Mono). Self-hosted via `@fontsource`
+and embedded into PNG exports as base64 woff2 so the download matches
+the preview, not your system fallback.
+
+**URL-encoded state.** Every config is a shareable link. `?s=ring&g=10000&r=4500&t=...`
+restores the exact view. The schema version is locked at `v=1` for
+forward compatibility.
+
+**A read-only viewer route.** `https://benjamintravis.com/riseling/v/?...`
+renders the meter without controls. Useful for sharing a clean view, or
+embedding it.
+
+**An embed modal.** Generates a copy-pastable iframe snippet with width,
+height, background, and an optional "Edit in Riseling" link. Hosts get
+auto-resize via a `postMessage` height handshake.
+
+**Export presets.** Native PNG, IG Story 1080×1920, Square 1080×1080,
+Social card 1200×630, Print B&W-safe at 300dpi grayscale, raw SVG.
+
+**Live spring-animated fill** when raised or goal values change.
+
+**Show/hide toggles** for title, caption, raised number, goal line, and
+percentage label, in case you want a minimal version.
+
+**No signup. No watermark. No upload.** Everything runs in the browser.
 
 ---
 
 ## Stack
 
-- [React](https://react.dev) + [Vite](https://vitejs.dev) — UI and build
-- [TypeScript](https://www.typescriptlang.org) — types
-- [Tailwind v4](https://tailwindcss.com) — styling
-- [nuqs](https://nuqs.47ng.com) — URL-synced state
-- [@fontsource](https://fontsource.org) — self-hosted Fraunces, Inter, Instrument Serif
-- `Intl.NumberFormat` — locale-aware number and currency formatting
-- Native SVG → Canvas — PNG export with no DOM-capture dependency
-
----
-
-## Why
-
-I was looking for a fundraising progress generator for a side project and
-nothing I found felt right. The ones that existed were one-shot tools:
-type a goal, click generate, get a static image. Most handled US dollars
-only. A few watermarked the output.
-
-I wanted something more like a live configurator. Pick a font, pick a
-color, type a number, see the preview update as I type, download a clean
-PNG. I wanted the state to live in the URL so "send me the thermometer"
-wouldn't require a screenshot. And I wanted to count things other than
-dollars, because the most motivating fundraising targets aren't always
-monetary.
-
-Riseling is that tool.
+- [React 19](https://react.dev) + [Vite 8](https://vitejs.dev) + [TypeScript 6](https://www.typescriptlang.org)
+- [Tailwind v4](https://tailwindcss.com) via the Oxide plugin
+- [nuqs](https://nuqs.47ng.com) for URL-synced state
+- [@fontsource](https://fontsource.org) for self-hosted webfonts
+- `Intl.NumberFormat` for locale-aware currency formatting
+- Native SVG → Canvas for PNG export (no DOM-capture deps)
+- Multi-entry Vite build for the editor (`/`) and viewer (`/v/`) routes
+- GitHub Pages deployment via Actions
 
 ---
 

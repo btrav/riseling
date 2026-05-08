@@ -30,6 +30,6 @@ export const LIVE_SHAPES: ShapeKey[] = [
   'bar',
   'ring',
   'jar',
-  'battery',
   'heart',
+  'battery',
 ];

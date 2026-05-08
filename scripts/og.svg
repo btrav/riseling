@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="stemFill" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#F87171"/>
+      <stop offset="0.45" stop-color="#E11D48"/>
+      <stop offset="1" stop-color="#9F1239"/>
+    </linearGradient>
+    <radialGradient id="bulbFill" cx="0.4" cy="0.35" r="0.85" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#F87171"/>
+      <stop offset="0.55" stop-color="#E11D48"/>
+      <stop offset="1" stop-color="#9F1239"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#FAFAF9"/>
+
+  <g transform="translate(310, 130)">
+    <rect x="-30" y="0" width="60" height="380" rx="30" fill="#EEF0F3" stroke="#D6DBE3" stroke-width="1.5"/>
+    <circle cx="0" cy="380" r="68" fill="#EEF0F3" stroke="#D6DBE3" stroke-width="1.5"/>
+
+    <rect x="-30" y="178" width="60" height="200" fill="url(#stemFill)"/>
+    <circle cx="0" cy="380" r="60" fill="url(#bulbFill)"/>
+    <ellipse cx="-14" cy="366" rx="14" ry="22" fill="#FFFFFF" opacity="0.22"/>
+
+    <text x="60" y="186" text-anchor="start"
+          font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="600" fill="#374151">43%</text>
+  </g>
+
+  <g transform="translate(620, 250)">
+    <text x="0" y="0"
+          font-family="Fraunces, 'Source Serif Pro', Georgia, serif"
+          font-style="italic" font-weight="600" font-size="128" fill="#111827">Riseling</text>
+    <text x="0" y="76"
+          font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="500" fill="#374151">
+      Fundraising progress images
+    </text>
+    <text x="0" y="120"
+          font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="500" fill="#374151">
+      you can actually control.
+    </text>
+    <text x="0" y="200"
+          font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="500" fill="#6B7280">
+      No signup. No watermark. URL is the file format.
+    </text>
+    <text x="0" y="290"
+          font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="600" fill="#E11D48">
+      benjamintravis.com/riseling
+    </text>
+  </g>
+</svg>
