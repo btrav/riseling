@@ -27,9 +27,13 @@ export type ShapeState = {
 export function useShapeState(config: Config): ShapeState {
   const targetPercent = progressPercent(config);
   const percent = useSpring(targetPercent);
-  const raised = Math.round(useSpring(config.current));
+  const springRaised = useSpring(config.current);
+  const raised = Math.round(springRaised);
   const fonts = FONT_THEMES[config.font].families;
-  const displayPercent = Math.round(percent);
+  const displayPercent =
+    config.target > 0
+      ? Math.max(0, Math.round((springRaised / config.target) * 100))
+      : 0;
   const renderedConfig = { ...config, current: raised };
 
   const fillLight = lighten(config.fillColor, 0.22);

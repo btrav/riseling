@@ -2,11 +2,20 @@ import { useEffect } from 'react';
 
 type Props = { onCopied: (message: string) => void };
 
+function buildShareLink(): string {
+  const url = new URL(window.location.href);
+  url.pathname = url.pathname.replace(/\/+$/, '') + '/v/';
+  const params = new URLSearchParams(url.search);
+  params.set('interactive', '1');
+  url.search = params.toString();
+  return url.toString();
+}
+
 export function CopyLinkButton({ onCopied }: Props) {
   async function copy() {
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      onCopied('Link copied');
+      await navigator.clipboard.writeText(buildShareLink());
+      onCopied('Share link copied');
     } catch {
       onCopied('Copy failed');
     }
